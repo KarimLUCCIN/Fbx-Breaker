@@ -34,6 +34,7 @@ namespace FbxBreakUtil
             var breaker = new FbxModelBreaker(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Sample\\Ship.fbx");
             breaker.Save(new MySaveHandler(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Sample\\Break\\Out_ship\\"), BreakerOutputFormat.Fbx);
 
+
             foreach (var item in FbxModelBreaker.globalMessages)
             {
                 Console.WriteLine(item);

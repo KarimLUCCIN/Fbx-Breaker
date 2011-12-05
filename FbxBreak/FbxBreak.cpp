@@ -152,6 +152,7 @@ namespace FbxBreak {
 		if(!String::IsNullOrEmpty(outputPath))
 		{
 			char* resolvedFullPath = (char*)(void*)Marshal::StringToHGlobalAnsi(outputPath);
+			char* fullIdPtr = (char*)(void*)Marshal::StringToHGlobalAnsi(fullId);
 
 			try
 			{
@@ -161,7 +162,7 @@ namespace FbxBreak {
 				try
 				{
 					/* the transform is not applied because it's supposed to be the job of the saveHandler */
-					lChild = KFbxNode::Create(partScene, "child");
+					lChild = KFbxNode::Create(partScene, fullIdPtr);
 					KFbxMesh * lMesh = (KFbxMesh*) att;
 
 					KFbxObject* lSourceObj = lMesh;
@@ -178,17 +179,17 @@ namespace FbxBreak {
 						0,
 						KFbxObject::eDEEP_CLONE );
 
-						// Create the clone set;
-						lCloneSet.Insert( lSourceObj, lDefaultCloneOptions );
+						//// Create the clone set;
+						//lCloneSet.Insert( lSourceObj, lDefaultCloneOptions );
 
-						lCloneManager.AddDependents( lCloneSet, lSourceObj, lDefaultCloneOptions);
+						//lCloneManager.AddDependents( lCloneSet, lSourceObj, lDefaultCloneOptions);
 
-						// Clone the object and retrieve it
-						lCloneManager.Clone(lCloneSet, pOptDestionationContainer);
-						KFbxCloneManager::CloneSet::RecordType* lIterator = lCloneSet.Find(lSourceObj);
-						lCloneResult = static_cast<KFbxObject*>(lIterator->GetValue().mObjectClone);
+						//// Clone the object and retrieve it
+						//lCloneManager.Clone(lCloneSet, pOptDestionationContainer);
+						//KFbxCloneManager::CloneSet::RecordType* lIterator = lCloneSet.Find(lSourceObj);
+						//lCloneResult = static_cast<KFbxObject*>(lIterator->GetValue().mObjectClone);
 					
-					//lChild->AddNodeAttribute(globalConverter->TriangulateMesh(mesh));
+						lChild->AddNodeAttribute(globalConverter->TriangulateMesh( (KFbxMesh*)lMesh));
 
 						int lMaterialCount = srcNode->GetSrcObjectCount( KFbxSurfaceMaterial::ClassId );
 
@@ -208,6 +209,8 @@ namespace FbxBreak {
 							lCloneManager.Clone(lCloneSet, pOptDestionationContainer);
 							KFbxCloneManager::CloneSet::RecordType* lIterator = lCloneSet.Find(lSourceObj);
 							lCloneResult = static_cast<KFbxObject*>(lIterator->GetValue().mObjectClone);
+
+							lChild->AddMaterial((KFbxSurfaceMaterial*)lCloneResult);
 						}
 
 					partScene->GetRootNode()->AddChild(lChild);
@@ -238,6 +241,7 @@ namespace FbxBreak {
 			finally
 			{
 				Marshal::FreeHGlobal((IntPtr)resolvedFullPath);
+				Marshal::FreeHGlobal((IntPtr)fullIdPtr);
 			}
 
 		}
