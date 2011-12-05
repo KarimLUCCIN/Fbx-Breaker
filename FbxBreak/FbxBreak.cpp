@@ -163,8 +163,52 @@ namespace FbxBreak {
 					/* the transform is not applied because it's supposed to be the job of the saveHandler */
 					lChild = KFbxNode::Create(partScene, "child");
 					KFbxMesh * lMesh = (KFbxMesh*) att;
+
+					KFbxObject* lSourceObj = lMesh;
+					KFbxObject* lCloneResult = NULL;
+					KFbxObject* pOptDestionationContainer = lChild;
+
+					// Use the clone manager to clone the scene
+					KFbxCloneManager lCloneManager;
+					KFbxCloneManager::CloneSet lCloneSet;
+
+					// You can specify your own clone options here
+					KFbxCloneManager::CloneSetElement lDefaultCloneOptions(
+						KFbxCloneManager::sConnectToClone,
+						0,
+						KFbxObject::eDEEP_CLONE );
+
+						// Create the clone set;
+						lCloneSet.Insert( lSourceObj, lDefaultCloneOptions );
+
+						lCloneManager.AddDependents( lCloneSet, lSourceObj, lDefaultCloneOptions);
+
+						// Clone the object and retrieve it
+						lCloneManager.Clone(lCloneSet, pOptDestionationContainer);
+						KFbxCloneManager::CloneSet::RecordType* lIterator = lCloneSet.Find(lSourceObj);
+						lCloneResult = static_cast<KFbxObject*>(lIterator->GetValue().mObjectClone);
 					
-					lChild->AddNodeAttribute(globalConverter->TriangulateMesh(mesh));
+					//lChild->AddNodeAttribute(globalConverter->TriangulateMesh(mesh));
+
+						int lMaterialCount = srcNode->GetSrcObjectCount( KFbxSurfaceMaterial::ClassId );
+
+						for (int lCount = 0; lCount < lMaterialCount; lCount ++)
+						{
+							KFbxSurfaceMaterial *lMaterial = (KFbxSurfaceMaterial*)srcNode->GetSrcObject(KFbxSurfaceMaterial::ClassId, lCount);
+
+							lSourceObj = lMaterial;
+							lCloneSet.Clear();
+
+							// Create the clone set;
+							lCloneSet.Insert( lSourceObj, lDefaultCloneOptions );
+
+							lCloneManager.AddDependents( lCloneSet, lSourceObj, lDefaultCloneOptions);
+
+							// Clone the object and retrieve it
+							lCloneManager.Clone(lCloneSet, pOptDestionationContainer);
+							KFbxCloneManager::CloneSet::RecordType* lIterator = lCloneSet.Find(lSourceObj);
+							lCloneResult = static_cast<KFbxObject*>(lIterator->GetValue().mObjectClone);
+						}
 
 					partScene->GetRootNode()->AddChild(lChild);
 
