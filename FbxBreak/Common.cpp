@@ -206,22 +206,23 @@ bool LoadScene(KFbxSdkManager* pSdkManager, KFbxDocument* pScene, const char* pF
 
     if(lStatus == false && lImporter->GetLastErrorID() == KFbxIO::ePASSWORD_ERROR)
     {
-        printf("Please enter password: ");
+		throw gcnew System::Exception("File is password protected");
+        //printf("Please enter password: ");
 
-        lPassword[0] = '\0';
+        //lPassword[0] = '\0';
 
-        scanf("%s", lPassword);
-        KString lString(lPassword);
+        //scanf("%s", lPassword);
+        //KString lString(lPassword);
 
-        IOS_REF.SetStringProp(IMP_FBX_PASSWORD,      lString);
-        IOS_REF.SetBoolProp(IMP_FBX_PASSWORD_ENABLE, true);
+        //IOS_REF.SetStringProp(IMP_FBX_PASSWORD,      lString);
+        //IOS_REF.SetBoolProp(IMP_FBX_PASSWORD_ENABLE, true);
 
-        lStatus = lImporter->Import(pScene);
+        //lStatus = lImporter->Import(pScene);
 
-        if(lStatus == false && lImporter->GetLastErrorID() == KFbxIO::ePASSWORD_ERROR)
-        {
-            printf("\nPassword is wrong, import aborted.\n");
-        }
+        //if(lStatus == false && lImporter->GetLastErrorID() == KFbxIO::ePASSWORD_ERROR)
+        //{
+        //    printf("\nPassword is wrong, import aborted.\n");
+        //}
     }
 
     // Destroy the importer.

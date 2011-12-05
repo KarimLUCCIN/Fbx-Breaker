@@ -21,7 +21,11 @@ namespace FbxBreak {
 		void Load(String^ fbxFile);
 		void ProcessNode(KFbxNode* pNode, BreakerSaveHandler^ saveHandler, BreakerOutputFormat outputFormat);
 		String^ GetAttributeTypeName(KFbxNodeAttribute::EAttributeType type);
+		void ExportPart(String^ baseId, KFbxNode* srcNode, KFbxNodeAttribute* att, KFbxXMatrix& globalTransform, BreakerSaveHandler^ saveHandler, BreakerOutputFormat outputFormat );
 
+		int currentGeneratedMaxId;
+
+		KFbxGeometryConverter * globalConverter;
 	public:
 		static List<String^>^ globalMessages;
 

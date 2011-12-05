@@ -10,10 +10,29 @@ namespace FbxBreakUtil
 {
     class Program
     {
+        class MySaveHandler : BreakerSaveHandler
+        {
+            public MySaveHandler(string basePath)
+            {
+                BasePath = basePath;
+
+                if (!Directory.Exists(basePath))
+                    Directory.CreateDirectory(basePath);
+            }
+
+            public override string ResolveOutputPath(string id, TransformGroup transform)
+            {
+                return BasePath + id + ".fbx";
+            }
+
+            public string BasePath { get; set; }
+        }
+
+
         static void Main(string[] args)
         {
             var breaker = new FbxModelBreaker(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Sample\\Ship.fbx");
-            breaker.Save(null, BreakerOutputFormat.Fbx);
+            breaker.Save(new MySaveHandler(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Sample\\Break\\Out_ship\\"), BreakerOutputFormat.Fbx);
 
             foreach (var item in FbxModelBreaker.globalMessages)
             {

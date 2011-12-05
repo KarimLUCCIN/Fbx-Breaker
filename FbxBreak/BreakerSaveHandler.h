@@ -3,6 +3,21 @@
 using namespace System;
 using namespace System::IO;
 
+public ref struct Vect4
+{
+	double x;
+	double y;
+	double z;
+	double w;
+};
+
+public ref struct TransformGroup
+{
+	Vect4 scale;
+	Vect4 translation;
+	Vect4 quaternion;
+};
+
 namespace FbxBreak {
 
 	public ref class BreakerSaveHandler abstract
@@ -10,9 +25,11 @@ namespace FbxBreak {
 	public:
 		/*
 		Begins to write the specified mesh using the specified id.
-		The id is guarented to be unique.
+		The id is guaranteed to be unique.
+
+		Returns null to skip that mesh.
 		*/
-		virtual void OutputMesh(String^ id, void * data, int dataLength) = 0;
+		virtual String^ ResolveOutputPath(String^ id, TransformGroup ^ transform) = 0;
 	};
 
 }
