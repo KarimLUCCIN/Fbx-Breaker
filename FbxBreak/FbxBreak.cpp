@@ -14,6 +14,7 @@
 
 #include "Common.h"
 #include <vcclr.h>
+#include "FbxParser.h"
 
 KFbxSdkManager* lSdkManager;
 KFbxScene* lScene;
@@ -40,6 +41,9 @@ namespace FbxBreak {
 
 	FbxModelBreaker::FbxModelBreaker(String^ fbxFilePath)
 	{
+		unitScale = 1;
+		leftHanded = true;
+
 		currentGeneratedMaxId = 1;
 		Load(fbxFilePath);
 
@@ -151,7 +155,10 @@ namespace FbxBreak {
 
 		if(!String::IsNullOrEmpty(outputPath))
 		{
+			String^ outputPathTmp = outputPath + "tmp.fbx";
+
 			char* resolvedFullPath = (char*)(void*)Marshal::StringToHGlobalAnsi(outputPath);
+			char* resolvedFullPath_tmp = (char*)(void*)Marshal::StringToHGlobalAnsi(outputPathTmp);
 			char* fullIdPtr = (char*)(void*)Marshal::StringToHGlobalAnsi(fullId);
 
 			try
@@ -219,6 +226,12 @@ namespace FbxBreak {
 					{
 					case BreakerOutputFormat::X:
 						{
+							SaveScene(lSdkManager, partScene, resolvedFullPath_tmp);
+
+							ConvertToX(outputPathTmp, outputPath);
+
+							File::Delete(outputPathTmp);
+
 							break;
 						}
 					case BreakerOutputFormat::Fbx:
@@ -242,9 +255,25 @@ namespace FbxBreak {
 			{
 				Marshal::FreeHGlobal((IntPtr)resolvedFullPath);
 				Marshal::FreeHGlobal((IntPtr)fullIdPtr);
+				Marshal::FreeHGlobal((IntPtr)resolvedFullPath_tmp);
 			}
 
 		}
+	}
+
+	void FbxModelBreaker::ConvertToX( String^ fbx, String^ x)
+	{
+		FbxParser^ parser = gcnew FbxParser(fbx, zUp, unitScale);
+
+		parser->SetSwapWindingOrder(swapWindingOrder);
+		parser->SetCoordinate(leftHanded);
+
+		FbxSkeletalNode^ root = parser->GetSkeletalHierarchy();
+		FbxSkeletalNode^ model = parser->GetModel();
+		FbxAnimationCollection^ col = parser->GetAnimation();
+
+		XConverter^ conv = gcnew XConverter();
+		conv->ConvertFbx2X(Path::GetDirectoryName(fbx), x, root, model, col, false, true);
 	}
 
 }

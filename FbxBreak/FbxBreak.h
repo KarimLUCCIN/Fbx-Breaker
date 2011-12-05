@@ -27,6 +27,11 @@ namespace FbxBreak {
 
 		KFbxGeometryConverter * globalConverter;
 	public:
+		bool zUp;
+		double unitScale;
+		bool swapWindingOrder;
+		bool leftHanded;
+
 		static List<String^>^ globalMessages;
 
 		static FbxModelBreaker()
@@ -39,5 +44,6 @@ namespace FbxBreak {
 		~FbxModelBreaker();
 
 		void Save(BreakerSaveHandler^ saveHandler, BreakerOutputFormat outputFormat);
+		void ConvertToX( String^ fbx, String^ x);
 	};
 }

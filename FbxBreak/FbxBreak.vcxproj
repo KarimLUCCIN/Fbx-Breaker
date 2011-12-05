@@ -52,6 +52,7 @@
       <PreprocessorDefinitions>FBXSDK_SHARED;WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FbxSdk\2012.2\include;C:\Program Files\Autodesk\FBX\FbxSdk\2012.2\include\fbxfilesdk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsManaged>true</CompileAsManaged>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -60,7 +61,7 @@
       <AdditionalLibraryDirectories>C:\Program Files\Autodesk\FBX\FbxSdk\2012.2\lib\vs2010\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ForceSymbolReferences>
       </ForceSymbolReferences>
-      <NoEntryPoint>false</NoEntryPoint>
+      <NoEntryPoint>true</NoEntryPoint>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -69,6 +70,7 @@
       <PreprocessorDefinitions>FBXSDK_SHARED;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FbxSdk\2012.2\include;C:\Program Files\Autodesk\FBX\FbxSdk\2012.2\include\fbxfilesdk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsManaged>true</CompileAsManaged>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -77,10 +79,11 @@
       <AdditionalLibraryDirectories>C:\Program Files\Autodesk\FBX\FbxSdk\2012.2\lib\vs2010\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ForceSymbolReferences>
       </ForceSymbolReferences>
-      <NoEntryPoint>false</NoEntryPoint>
+      <NoEntryPoint>true</NoEntryPoint>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.DirectX" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -90,6 +93,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="CppPrintfOverride.h" />
     <ClInclude Include="FbxBreak.h" />
+    <ClInclude Include="FbxParser.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Stdafx.h" />
   </ItemGroup>
@@ -98,6 +102,7 @@
     <ClCompile Include="BreakerSaveHandler.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="FbxBreak.cpp" />
+    <ClCompile Include="FbxParser.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -109,6 +114,11 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FbxBreak.XFileWriter\FbxBreak.XFileWriter.csproj">
+      <Project>{3e3da2ae-e97d-4bbd-84ce-9a83c60978ca}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

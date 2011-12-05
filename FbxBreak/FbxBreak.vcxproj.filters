@@ -33,6 +33,9 @@
     <ClInclude Include="CppPrintfOverride.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FbxParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FbxBreak.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FbxParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -5,6 +5,7 @@ using System.Text;
 using FbxBreak;
 using System.IO;
 using System.Reflection;
+using FbxBreak.XFileWriter;
 
 namespace FbxBreakUtil
 {
@@ -22,7 +23,7 @@ namespace FbxBreakUtil
 
             public override string ResolveOutputPath(string id, TransformGroup transform)
             {
-                return BasePath + id + ".fbx";
+                return BasePath + id + ".x";
             }
 
             public string BasePath { get; set; }
@@ -31,8 +32,15 @@ namespace FbxBreakUtil
 
         static void Main(string[] args)
         {
+            Process();
+        }
+
+        private static void Process()
+        {
+            var br = Microsoft.DirectX.Direct3D.Device.IsUsingEventHandlers;
+
             var breaker = new FbxModelBreaker(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Sample\\Ship.fbx");
-            breaker.Save(new MySaveHandler(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Sample\\Break\\Out_ship\\"), BreakerOutputFormat.Fbx);
+            breaker.Save(new MySaveHandler(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Sample\\Break\\Out_ship\\"), BreakerOutputFormat.X);
 
 
             foreach (var item in FbxModelBreaker.globalMessages)
