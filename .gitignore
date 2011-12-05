@@ -1,0 +1,8 @@
+*.dll
+*/Release
+*/Debug
+*/bin
+*/obj
+*.sdf
+/FbxBreak.sln.docstates.suo
+/FbxBreak.suo
