@@ -42,7 +42,8 @@ namespace FbxBreak {
 	FbxModelBreaker::FbxModelBreaker(String^ fbxFilePath)
 	{
 		unitScale = 1;
-		leftHanded = true;
+		leftHanded = false;
+		swapWindingOrder = true;
 
 		currentGeneratedMaxId = 1;
 		Load(fbxFilePath);
@@ -273,6 +274,7 @@ namespace FbxBreak {
 		FbxAnimationCollection^ col = parser->GetAnimation();
 
 		XConverter^ conv = gcnew XConverter();
+		conv->SwapWindingOrder = swapWindingOrder;
 		conv->ConvertFbx2X(Path::GetDirectoryName(fbx), x, root, model, col, false, true);
 	}
 

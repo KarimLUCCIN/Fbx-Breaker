@@ -515,10 +515,12 @@ namespace FbxBreak.XFileWriter
         {
             if (!mesh.HasGeometry) return;
             FbxMeshBuilder.calculateTriangleNormals(mesh.Indexes, mesh.Vertexes);
-            //if (CommandParser.setting.bSwapWindingOrder)
-            //{
-            //FbxMeshBuilder.SwapWindingOrder(mesh);
-            //}
+
+            if (SwapWindingOrder)
+            {
+                FbxMeshBuilder.SwapWindingOrder(mesh);
+            }
+
             for (int i = 0; i < mesh.MeshParts.Count; i++)
             {
                 FbxMeshPart part = mesh.MeshParts[i];
@@ -971,7 +973,7 @@ namespace FbxBreak.XFileWriter
         }
 
         #endregion //support for convertion
-
-
+                
+        public bool SwapWindingOrder { get; set; }
     }
 }
