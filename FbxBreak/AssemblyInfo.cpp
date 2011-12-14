@@ -12,11 +12,11 @@ using namespace System::Security::Permissions;
 // associated with an assembly.
 //
 [assembly:AssemblyTitleAttribute("FbxBreak")];
-[assembly:AssemblyDescriptionAttribute("")];
+[assembly:AssemblyDescriptionAttribute("Fbx Breaker Tool")];
 [assembly:AssemblyConfigurationAttribute("")];
-[assembly:AssemblyCompanyAttribute("Microsoft")];
-[assembly:AssemblyProductAttribute("FbxBreak")];
-[assembly:AssemblyCopyrightAttribute("Copyright (c) Microsoft 2011")];
+[assembly:AssemblyCompanyAttribute("Copyright (c) Karim Audrey LUCCIN 2011")];
+[assembly:AssemblyProductAttribute("Sora")];
+[assembly:AssemblyCopyrightAttribute("Copyright (c) Karim Audrey LUCCIN 2011")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];
 
