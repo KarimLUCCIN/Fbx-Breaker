@@ -94,6 +94,7 @@
     <ClInclude Include="CppPrintfOverride.h" />
     <ClInclude Include="FbxBreak.h" />
     <ClInclude Include="FbxParser.h" />
+    <ClInclude Include="FbxWriter.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Stdafx.h" />
   </ItemGroup>
@@ -103,6 +104,7 @@
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="FbxBreak.cpp" />
     <ClCompile Include="FbxParser.cpp" />
+    <ClCompile Include="FbxWriter.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

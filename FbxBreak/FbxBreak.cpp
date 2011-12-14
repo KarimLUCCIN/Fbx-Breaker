@@ -133,14 +133,6 @@ namespace FbxBreak {
 		DestroySdkObjects(lSdkManager);
 	}
 
-#define KVecConv(param1, result) \
-	{ \
-		(result).x = (param1).mData[0]; \
-		(result).y = (param1).mData[1]; \
-		(result).z = (param1).mData[2]; \
-		(result).w = (param1).mData[3]; \
-	}
-
 	void FbxModelBreaker::ExportPart(String^ baseId, KFbxNode* srcNode, KFbxNodeAttribute* att, KFbxXMatrix& globalTransform, BreakerSaveHandler^ saveHandler, BreakerOutputFormat outputFormat )
 	{
 		String^ fullId = baseId + (gcnew Int32(currentGeneratedMaxId))->ToString();

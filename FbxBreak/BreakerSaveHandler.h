@@ -11,6 +11,12 @@ public ref struct Vect4
 	double w;
 };
 
+public ref struct Vect2
+{
+	double x;
+	double y;
+};
+
 public ref struct TransformGroup
 {
 	Vect4 scale;

@@ -8,8 +8,7 @@
    this software in either electronic or hard copy form.
 
 ****************************************************************************************/
-#ifndef _COMMON_H
-#define _COMMON_H
+#pragma once
 
 #include <fbxsdk.h>
 #include <stdio.h>
@@ -21,6 +20,12 @@ void CreateAndFillIOSettings(KFbxSdkManager* pSdkManager);
 bool SaveScene(KFbxSdkManager* pSdkManager, KFbxDocument* pScene, const char* pFilename, int pFileFormat=-1, bool pEmbedMedia=false);
 bool LoadScene(KFbxSdkManager* pSdkManager, KFbxDocument* pScene, const char* pFilename);
 
-#endif // #ifndef _COMMON_H
+#define KVecConv(param1, result) \
+{ \
+	(result).x = (param1).mData[0]; \
+	(result).y = (param1).mData[1]; \
+	(result).z = (param1).mData[2]; \
+	(result).w = (param1).mData[3]; \
+}
 
 
